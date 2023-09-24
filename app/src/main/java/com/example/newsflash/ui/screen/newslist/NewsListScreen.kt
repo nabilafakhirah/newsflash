@@ -28,18 +28,19 @@ import androidx.paging.compose.items
 import com.example.newsflash.data.model.NewsResponse
 import com.example.newsflash.ui.navigation.ARTICLES_DETAIL_ROUTE
 import com.example.newsflash.ui.widget.NewsItemView
+import com.example.newsflash.ui.widget.SearchBarView
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 @Composable
 fun NewsListScreen(
-    sourceId: String,
+    sourceId: String = "",
     modifier: Modifier = Modifier,
     navController: NavController,
     viewModel: NewsListViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(key1 = true) {
-        viewModel.getNewsList(sourceId)
+        viewModel.getNewsListBySource(sourceId)
         Log.d("SelectedCategory", "Source ID: $sourceId")
     }
 
@@ -66,6 +67,14 @@ fun NewsListScreen(
                 .fillMaxWidth()
                 .padding(top = 16.dp)
         ) {
+            SearchBarView(
+                onSearch = {
+                    viewModel.getNewsListByQuery(
+                        sourceId = sourceId,
+                        query = it,
+                    )
+                }
+            )
             if (newsList != null) {
                 ListContent(
                     news = newsList,

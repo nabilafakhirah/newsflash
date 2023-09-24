@@ -1,10 +1,10 @@
 package com.example.newsflash.ui.screen.sources
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.newsflash.data.model.SourceResponse
 import com.example.newsflash.data.repository.NewsRepository
 import com.example.newsflash.utils.DataResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,15 +19,14 @@ class SourcesViewModel @Inject constructor(
 
     private val _state = mutableStateOf(SourcesState())
     val state: State<SourcesState> = _state
+    private var initialSources: List<SourceResponse.Source> = emptyList()
 
     fun getSourcesFromCategory(category: String) {
         val sourceResponse = repository.getSourcesByCategory(category)
         sourceResponse.onEach { result ->
             when (result) {
                 is DataResult.Success -> {
-                    Log.d("SelectedCategory", "Success retrieve di ViewModel")
-                    Log.d("SelectedCategory", "List size ${result.data?.sources?.size}")
-                    Log.d("SelectedCategory", "Retrieve status ${result.data?.status}")
+                    initialSources = result.data?.sources ?: emptyList()
                     _state.value = SourcesState(
                         isLoading = false,
                         sourceList = result.data?.sources ?: emptyList()
@@ -43,5 +42,16 @@ class SourcesViewModel @Inject constructor(
                 )
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun filterSources(keyword: String) {
+        val filteredSourceList = initialSources.filter {
+            it.name?.contains(keyword) ?: false
+        }
+
+        _state.value = SourcesState(
+            isLoading = false,
+            sourceList = filteredSourceList
+        )
     }
 }

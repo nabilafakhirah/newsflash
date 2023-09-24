@@ -11,7 +11,8 @@ import java.io.IOException
 
 class SearchNewsPaging(
     private val newsApi: NewsApi,
-    private var query : String
+    private var query : String,
+    private var sourceId: String,
 ) : PagingSource<Int, NewsResponse.Article>() {
 
 
@@ -21,6 +22,7 @@ class SearchNewsPaging(
             val data = newsApi.searchNews(
                 query = query,
                 page = position,
+                sources = sourceId,
                 pageSize = params.loadSize)
             val nextKey = if (data.articles.isEmpty()) {
                 null

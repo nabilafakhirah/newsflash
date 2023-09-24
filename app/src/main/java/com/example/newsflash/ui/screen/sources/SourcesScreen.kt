@@ -20,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.newsflash.ui.navigation.ARTICLES_SCREEN_ROUTE
 import com.example.newsflash.ui.navigation.SOURCES_SCREEN_ROUTE
+import com.example.newsflash.ui.widget.SearchBarView
 import com.example.newsflash.ui.widget.SourceItemView
 
 @Composable
@@ -53,11 +54,16 @@ fun SourcesScreen(
         }
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp)
                 .verticalScroll(rememberScrollState()),
         ) {
+            SearchBarView(
+                onSearch = {
+                    viewModel.filterSources(it)
+                }
+            )
             sourcesList.forEach {
                 val sourceId = it.id.orEmpty()
                 SourceItemView(

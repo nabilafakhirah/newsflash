@@ -11,7 +11,7 @@ interface NewsRepository {
 
     fun getSourcesByCategory(category: String): Flow<DataResult<SourceResponse>>
 
-    fun searchNews(query : String) : Flow<PagingData<NewsResponse.Article>>
+    fun searchNews(query : String, sourceId: String) : Flow<PagingData<NewsResponse.Article>>
 
     fun getNewsCategories() : List<String>
 }

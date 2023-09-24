@@ -55,12 +55,12 @@ class NewsRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun searchNews(query: String): Flow<PagingData<NewsResponse.Article>> = Pager(
+    override fun searchNews(query: String, sourceId: String): Flow<PagingData<NewsResponse.Article>> = Pager(
         config = PagingConfig(
             pageSize = PAGE_SIZE,
         ),
         pagingSourceFactory = {
-            SearchNewsPaging(newsApi, query)
+            SearchNewsPaging(newsApi, query, sourceId)
         }
     ).flow
 
