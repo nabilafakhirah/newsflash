@@ -26,7 +26,10 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.example.newsflash.data.model.NewsResponse
+import com.example.newsflash.ui.navigation.ARTICLES_DETAIL_ROUTE
 import com.example.newsflash.ui.widget.NewsItemView
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun NewsListScreen(
@@ -99,7 +102,15 @@ fun ListContent(
                         publishedAt = it.publishedAt,
                         url = it.url,
                         urlToImage = it.urlToImage.orEmpty(),
-                        onClickOpenNews = {}
+                        onClickOpenNews = {
+                            val encodedUrl = URLEncoder.encode(it.url, StandardCharsets.UTF_8.toString())
+                            navController.navigate(
+                                "$ARTICLES_DETAIL_ROUTE/{url}".replace(
+                                    oldValue = "{url}",
+                                    newValue = encodedUrl
+                                )
+                            )
+                        }
                     )
                     Box(
                         modifier = Modifier

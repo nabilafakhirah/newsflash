@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import com.example.newsflash.ui.screen.home.HomeScreen
 import com.example.newsflash.ui.screen.newslist.NewsListScreen
 import com.example.newsflash.ui.screen.sources.SourcesScreen
+import com.example.newsflash.ui.screen.webview.NewsWebView
 
 @Composable
 fun NavGraph(
@@ -33,10 +34,17 @@ fun NavGraph(
                 navController = navController
             )
         }
+        composable("${ARTICLES_DETAIL_ROUTE}/{url}") {
+            val url = it.arguments?.getString("url") ?: ""
+            NewsWebView(
+                url = url,
+                navController = navController
+            )
+        }
     }
 }
 
-const val HOME_SCREEN_ROUTE = "home screen"
-const val SOURCES_SCREEN_ROUTE = "sources screen route"
-const val ARTICLES_SCREEN_ROUTE = "articles screen route"
-const val ARTICLES_DETAIL_ROUTE = "articles detail route"
+const val HOME_SCREEN_ROUTE = "home_screen"
+const val SOURCES_SCREEN_ROUTE = "sources_screen_route"
+const val ARTICLES_SCREEN_ROUTE = "articles_screen_route"
+const val ARTICLES_DETAIL_ROUTE = "articles_detail_route"

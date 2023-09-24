@@ -28,14 +28,14 @@ fun NewsItemView(
     url: String,
     urlToImage: String,
     publishedAt: String,
-    onClickOpenNews: (String) -> Unit,
+    onClickOpenNews: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .clickable { onClickOpenNews(url) },
+            .clickable { onClickOpenNews() },
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         Row(
