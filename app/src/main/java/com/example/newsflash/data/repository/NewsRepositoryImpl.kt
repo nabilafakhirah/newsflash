@@ -1,5 +1,6 @@
 package com.example.newsflash.data.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -29,6 +30,7 @@ class NewsRepositoryImpl @Inject constructor(
         ).flow
 
     override fun getSourcesByCategory(category: String): Flow<DataResult<SourceResponse>> = flow {
+        Log.d("SelectedCategory", "Masuk fetching: $category")
         try {
             emit(DataResult.Loading())
             val result = if (category == "All") {
@@ -36,14 +38,17 @@ class NewsRepositoryImpl @Inject constructor(
             } else {
                 newsApi.getSourcesByCategory(category = category)
             }
+            Log.d("SelectedCategory", "Success fetching: $category")
             emit(DataResult.Success(result))
         } catch (e: IOException) {
             e.printStackTrace()
+            Log.d("SelectedCategory", "Failed to retrieve sources")
             emit(DataResult.Error(
                 message = "Failed to retrieve sources"
             ))
         } catch (e: HttpException) {
             e.printStackTrace()
+            Log.d("SelectedCategory", "Failed to retrieve sources")
             emit(DataResult.Error(
                 message = "Failed to retrieve sources"
             ))

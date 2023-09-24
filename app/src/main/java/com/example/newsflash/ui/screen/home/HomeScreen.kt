@@ -1,5 +1,6 @@
-package com.example.newsflash.ui.screen
+package com.example.newsflash.ui.screen.home
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.GridCells
@@ -9,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.newsflash.ui.navigation.SOURCES_SCREEN_ROUTE
 import com.example.newsflash.ui.widget.CategoryItemView
 import com.example.newsflash.ui.widget.SearchBarView
 
@@ -28,9 +30,18 @@ fun HomeScreen(
             modifier = Modifier.padding(it),
         ) {
             items(state.value.categoryList.size) { index ->
+                val categoryName = state.value.categoryList[index]
                 CategoryItemView(
-                    key = state.value.categoryList[index],
-                    onClickCategory = {}
+                    key = categoryName,
+                    onClickCategory = {
+                        Log.d("SelectedCategory", "User picked: $categoryName")
+                        navController.navigate(
+                            "${SOURCES_SCREEN_ROUTE}/{category}".replace(
+                                oldValue = "{category}",
+                                newValue = categoryName
+                            )
+                        )
+                    }
                 )
             }
         }

@@ -23,14 +23,14 @@ import com.example.newsflash.ui.theme.Typography
 @Composable
 fun CategoryItemView(
     key: String,
-    onClickCategory: (String) -> Unit,
+    onClickCategory: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier
             .padding(16.dp)
             .clickable {
-                onClickCategory(key)
+                onClickCategory()
             },
         shape = RoundedCornerShape(8.dp),
         elevation = 4.dp,

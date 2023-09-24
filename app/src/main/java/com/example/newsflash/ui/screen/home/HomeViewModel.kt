@@ -1,4 +1,4 @@
-package com.example.newsflash.ui.screen
+package com.example.newsflash.ui.screen.home
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf

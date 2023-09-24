@@ -23,12 +23,20 @@ data class NewsResponse(
         @Json(name = "publishedAt")
         val publishedAt: String,
         @Json(name = "source")
-        val source: SourceResponse?,
+        val source: Source?,
         @Json(name = "title")
         val title: String,
         @Json(name = "url")
         val url: String,
         @Json(name = "urlToImage")
         val urlToImage: String?
-    ) : Parcelable
+    ) : Parcelable {
+        @Parcelize
+        data class Source(
+            @Json(name = "id")
+            val id: String?,
+            @Json(name = "name")
+            val name: String?
+        ) : Parcelable
+    }
 }
