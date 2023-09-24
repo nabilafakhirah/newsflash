@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Newsflash</string>
+    <string name="loading_message">Loading data, give us a few seconds</string>
+    <string name="empty_result">Oops, the result you looked for does not exist. Look for another?</string>
 </resources>

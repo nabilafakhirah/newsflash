@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.newsflash.ui.theme.Purple80
+import com.example.newsflash.ui.theme.PurpleGrey80
 import com.example.newsflash.ui.theme.Typography
 
 @Composable
@@ -31,6 +34,9 @@ fun SourceItemView(
             .clickable {
                 onClickSource(id)
             },
+        shape = RoundedCornerShape(8.dp),
+        backgroundColor = PurpleGrey80,
+        elevation = 4.dp,
     ) {
         Column (
             modifier = Modifier.padding(16.dp),

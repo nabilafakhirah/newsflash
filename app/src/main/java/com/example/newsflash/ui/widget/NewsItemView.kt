@@ -1,5 +1,6 @@
 package com.example.newsflash.ui.widget
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.newsflash.R
+import com.example.newsflash.ui.theme.PurpleGrey80
 import com.example.newsflash.ui.theme.Typography
 
 @Composable
@@ -34,23 +36,19 @@ fun NewsItemView(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .background(color = PurpleGrey80)
             .padding(16.dp)
             .clickable { onClickOpenNews() },
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            AsyncImage(
-                modifier = Modifier.height(150.dp),
-                model = urlToImage,
-                contentScale = ContentScale.Crop,
-                placeholder = painterResource(id = R.drawable.img_placeholder),
-                error = painterResource(id = R.drawable.img_placeholder),
-                contentDescription = "",
-            )
-        }
+        AsyncImage(
+            modifier = Modifier.height(150.dp),
+            model = urlToImage,
+            contentScale = ContentScale.Crop,
+            placeholder = painterResource(id = R.drawable.img_placeholder),
+            error = painterResource(id = R.drawable.img_placeholder),
+            contentDescription = "",
+        )
         Text(
             text = title,
             style = Typography.h5,

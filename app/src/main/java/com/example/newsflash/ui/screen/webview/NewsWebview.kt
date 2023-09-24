@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
+import com.example.newsflash.ui.widget.TopBarView
 
 @Composable
 fun NewsWebView(
@@ -24,17 +25,7 @@ fun NewsWebView(
 ) {
     Scaffold(
         topBar = {
-            Row {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .clickable {
-                            navController.navigateUp()
-                        }
-                )
-            }
+            TopBarView(onClickBack = { navController.navigateUp() })
         }
     ) {
         AndroidView(factory = {

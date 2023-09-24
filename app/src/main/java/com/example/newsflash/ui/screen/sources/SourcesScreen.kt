@@ -20,8 +20,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.newsflash.ui.navigation.ARTICLES_SCREEN_ROUTE
 import com.example.newsflash.ui.navigation.SOURCES_SCREEN_ROUTE
+import com.example.newsflash.ui.widget.EmptyView
+import com.example.newsflash.ui.widget.LoadingView
 import com.example.newsflash.ui.widget.SearchBarView
 import com.example.newsflash.ui.widget.SourceItemView
+import com.example.newsflash.ui.widget.TopBarView
 
 @Composable
 fun SourcesScreen(
@@ -40,46 +43,50 @@ fun SourcesScreen(
 
     Scaffold(
         topBar = {
-            Row {
-                Icon(
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .clickable {
-                            navController.navigateUp()
-                        }
-                )
-            }
+            TopBarView(onClickBack = { navController.navigateUp() })
         }
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp)
-                .verticalScroll(rememberScrollState()),
+                .padding(top = 16.dp),
         ) {
             SearchBarView(
                 onSearch = {
                     viewModel.filterSources(it)
                 }
             )
-            sourcesList.forEach {
-                val sourceId = it.id.orEmpty()
-                SourceItemView(
-                    id = sourceId,
-                    name = it.name.orEmpty(),
-                    description = it.description.orEmpty(),
-                    url = it.url.orEmpty(),
-                    onClickSource = {
-                        navController.navigate(
-                            "$ARTICLES_SCREEN_ROUTE/{sourceId}".replace(
-                                oldValue = "{sourceId}",
-                                newValue = sourceId
+            if (state.value.isLoading) {
+                LoadingView()
+            }
+            else {
+                if (sourcesList.isEmpty()) {
+                    EmptyView()
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .verticalScroll(rememberScrollState()),
+                    ) {
+                        sourcesList.forEach {
+                            val sourceId = it.id.orEmpty()
+                            SourceItemView(
+                                id = sourceId,
+                                name = it.name.orEmpty(),
+                                description = it.description.orEmpty(),
+                                url = it.url.orEmpty(),
+                                onClickSource = {
+                                    navController.navigate(
+                                        "$ARTICLES_SCREEN_ROUTE/{sourceId}".replace(
+                                            oldValue = "{sourceId}",
+                                            newValue = sourceId
+                                        )
+                                    )
+                                }
                             )
-                        )
+                        }
                     }
-                )
+                }
             }
         }
     }

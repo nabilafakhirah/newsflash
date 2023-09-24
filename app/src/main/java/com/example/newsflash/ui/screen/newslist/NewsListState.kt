@@ -5,7 +5,7 @@ import com.example.newsflash.data.model.NewsResponse
 import kotlinx.coroutines.flow.Flow
 
 data class NewsListState(
-    var isLoading: Boolean = false,
+    var isLoading: Boolean = true,
     val sourceList: Flow<PagingData<NewsResponse.Article>>? = null,
     val error: String? = ""
 )

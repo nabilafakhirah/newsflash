@@ -18,6 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.newsflash.R
+import com.example.newsflash.ui.theme.Purple80
+import com.example.newsflash.ui.theme.PurpleGrey80
 import com.example.newsflash.ui.theme.Typography
 
 @Composable
@@ -33,6 +35,7 @@ fun CategoryItemView(
                 onClickCategory()
             },
         shape = RoundedCornerShape(8.dp),
+        backgroundColor = PurpleGrey80,
         elevation = 4.dp,
     ) {
         Column(
