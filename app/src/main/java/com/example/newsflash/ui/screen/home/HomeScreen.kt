@@ -34,7 +34,6 @@ fun HomeScreen(
                 CategoryItemView(
                     key = categoryName,
                     onClickCategory = {
-                        Log.d("SelectedCategory", "User picked: $categoryName")
                         navController.navigate(
                             "${SOURCES_SCREEN_ROUTE}/{category}".replace(
                                 oldValue = "{category}",

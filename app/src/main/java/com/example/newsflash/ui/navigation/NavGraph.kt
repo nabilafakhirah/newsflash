@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.newsflash.ui.screen.home.HomeScreen
+import com.example.newsflash.ui.screen.newslist.NewsListScreen
 import com.example.newsflash.ui.screen.sources.SourcesScreen
 
 @Composable
@@ -22,7 +23,15 @@ fun NavGraph(
             val category = it.arguments?.getString("category") ?: "All"
             SourcesScreen(
                 navController = navController,
-                category = category)
+                category = category
+            )
+        }
+        composable("${ARTICLES_SCREEN_ROUTE}/{sourceId}") {
+            val sourceId = it.arguments?.getString("sourceId") ?: ""
+            NewsListScreen(
+                sourceId = sourceId,
+                navController = navController
+            )
         }
     }
 }

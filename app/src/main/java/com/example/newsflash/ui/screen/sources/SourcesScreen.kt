@@ -18,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.newsflash.ui.navigation.ARTICLES_SCREEN_ROUTE
+import com.example.newsflash.ui.navigation.SOURCES_SCREEN_ROUTE
 import com.example.newsflash.ui.widget.SourceItemView
 
 @Composable
@@ -57,12 +59,20 @@ fun SourcesScreen(
                 .verticalScroll(rememberScrollState()),
         ) {
             sourcesList.forEach {
+                val sourceId = it.id.orEmpty()
                 SourceItemView(
-                    id = it.id.orEmpty(),
+                    id = sourceId,
                     name = it.name.orEmpty(),
                     description = it.description.orEmpty(),
                     url = it.url.orEmpty(),
-                    onClickSource = {}
+                    onClickSource = {
+                        navController.navigate(
+                            "$ARTICLES_SCREEN_ROUTE/{sourceId}".replace(
+                                oldValue = "{sourceId}",
+                                newValue = sourceId
+                            )
+                        )
+                    }
                 )
             }
         }
