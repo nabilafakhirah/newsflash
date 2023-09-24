@@ -8,8 +8,9 @@ This app was developed using Kotlin, Jetpack Compose, NewsAPI.org, and also MVVM
 ## How to use
 - Clone the repository and add your NewsAPI.org API key into the local.properties file as shown below
 ```
-API_KEY=8b22e843acf846cxxxxxxxxxxxxxxxx
+API_KEY=1111xxxxxxx
 ```
+- After that you should be able to run the program without a hassle
 <br />
 
 ## Author
